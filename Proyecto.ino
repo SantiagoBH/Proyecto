@@ -16,13 +16,22 @@ void setup()
   servoD.attach(9);
   servoI.attach(13);
   Serial.begin(9600);
-  BT.begin(38400);
+  BT.begin(9600);
   
 }
 
-void loop() {
+void loop(){
+  if (Serial.available() > 0)
+  {
+    orden = Serial.read();
+    Serial.write(orden);
+  }
+     
   if (BT.available() > 0)
-  orden = BT.read();
+  {
+    orden = BT.read();
+    Serial.write(orden);
+  }
   
   switch(orden){
   case 'w':  //Adelante
@@ -35,21 +44,54 @@ void loop() {
   servoI.write(horario);  
   break;
 
-  case 'a':  //Girar izquiera 
-  servoD.write(detener);
-  servoI.write(75);  
-  break;
-
-  case 'd':  //Girar derecha
-  servoD.write(100);
+  case 'a':  //Girar izquierda 
+  servoD.write(75);
   servoI.write(detener);  
   break;
 
-  case ' ':  //Detenerse
+  case 'd':  //Girar derecha
+  servoD.write(detener);
+  servoI.write(100);  
+  break;
+
+  case 'y':  //Detenerse
   servoD.write(detener);
   servoI.write(detener);  
   break;
   
+  case 'j':  // Correr con curva 
+  servoD.write(horario);
+  servoI.write(antihorario); 
+  delay(900);
+  servoD.write(detener);
+  servoI.write(100);
+  break;
+ 
+  case 'g': // correr en zic zac
+  servoD.write(detener);
+  servoI.write(100);
+  delay(300); 
+  servoD.write(horario);
+  servoI.write(antihorario); 
+  delay(600);
+  servoD.write(0);
+  servoI.write(detener);
+  delay(300);
+  break;
+
+  case 'm': // Ruleta
+  servoD.write(detener);
+  servoI.write(100);
+  delay(3500);
+  servoD.write(horario);
+  servoI.write(antihorario);
+  delay(2000);
+  break;
+
+  default:
+  servoD.write(detener);
+  servoI.write(detener);  
+  break;
   
 }
 }
