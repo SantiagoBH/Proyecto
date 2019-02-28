@@ -16,13 +16,24 @@ void setup()
   servoD.attach(9);
   servoI.attach(13);
   Serial.begin(9600);
-  BT.begin(38400);
+  BT.begin(9600);
   
 }
 
-void loop() {
+void loop(){
+  if (Serial.available() > 0)
+  {
+    orden = Serial.read();
+    Serial.write(orden);
+  }
+     
   if (BT.available() > 0)
-  orden = BT.read();
+  {
+    orden = BT.read();
+    Serial.write(orden);
+  }
+
+}
   
   switch(orden){
   case 'w':  //Adelante
@@ -49,7 +60,22 @@ void loop() {
   servoD.write(detener);
   servoI.write(detener);  
   break;
+  case 'j'  // Esquivar oponente hacia la derecha
+  servoD.write(horario);
+  servoI.write(antiorario); 
+  delay(2000);
+  servoD.write(100);
+  servoI.write(75);
+  case 'g'  // Esquivar oponente hacia la izquierda
+  servoD.write(horario);
+  servoI.write(antiorario); 
+  delay(2000);
+  servoD.write(75);
+  servoI.write(100);
   
-  
+  default:
+  ServoD.write(detener);
+  ServoI.write(detener);
+  break;
 }
-}
+
