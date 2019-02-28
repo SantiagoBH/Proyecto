@@ -32,11 +32,6 @@ void loop(){
     orden = BT.read();
     Serial.write(orden);
   }
-<<<<<<< HEAD
-=======
-
-}
->>>>>>> bdceecae66f6cf44c928bc6b40461d9cee9c3cba
   
   switch(orden){
   case 'w':  //Adelante
@@ -63,20 +58,7 @@ void loop(){
   servoD.write(detener);
   servoI.write(detener);  
   break;
-  case 'j'  // Esquivar oponente hacia la derecha
-  servoD.write(horario);
-  servoI.write(antiorario); 
-  delay(2000);
-  servoD.write(100);
-  servoI.write(75);
-  case 'g'  // Esquivar oponente hacia la izquierda
-  servoD.write(horario);
-  servoI.write(antiorario); 
-  delay(2000);
-  servoD.write(75);
-  servoI.write(100);
   
-<<<<<<< HEAD
   case 'j':  // Correr con curva 
   servoD.write(horario);
   servoI.write(antihorario); 
@@ -112,11 +94,4 @@ void loop(){
   break;
   
 }
-=======
-  default:
-  ServoD.write(detener);
-  ServoI.write(detener);
-  break;
->>>>>>> bdceecae66f6cf44c928bc6b40461d9cee9c3cba
 }
-
